@@ -6,6 +6,11 @@
   <title>بانگهێشتنامەی سیمیناری زانستی</title>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --seal-blue: #0f2b48;
+      --green-accent: #145a32;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -21,79 +26,82 @@
       font-style: italic;
     }
 
-    /* --- دەرگای سێ ڕەهەندی بە شەقبوونی ناوەڕاست بەرەو ناوەوە --- */
-    #doorWrapper {
+    /* --- دەرگای سێ ڕەهەندی بە شەقبوونی ناوەڕاست بەشێوەی سکە --- */
+    #door-wrapper {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: 9999;
-      perspective: 1400px;
-      perspective-origin: 50% 50%;
+      z-index: 1000;
       display: flex;
-      background-color: #0d0805;
-      overflow: hidden;
-      transition: opacity 0.8s ease;
+      perspective: 1200px;
+      transition: opacity 0.6s ease;
     }
 
     .door {
-      width: 50%;
-      height: 100%;
-      background-color: #3e281b;
-      background-image: url('1787831305292.png');
-      background-size: cover;
-      background-position: center;
-      transition: transform 1.6s cubic-bezier(0.7, 0, 0.25, 1), filter 1.6s ease;
-      box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.85);
+      width: 50vw;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      background-image: url('1787662967019.png');
+      background-size: 100vw 100vh;
+      background-repeat: no-repeat;
+      transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+      box-shadow: inset 0 0 50px rgba(0,0,0,0.6);
     }
 
     .door-left {
+      left: 0;
+      background-position: left center;
       transform-origin: left center;
-      border-right: 1px solid rgba(0, 0, 0, 0.5);
     }
 
     .door-right {
+      right: 0;
+      background-position: right center;
       transform-origin: right center;
-      border-left: 1px solid rgba(0, 0, 0, 0.5);
     }
 
-    /* مۆری شینی تۆخ لە ناوەڕاست */
+    /* مۆری ناوەڕاست */
     #sealBtn {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 110px;
-      height: 110px;
+      width: 105px;
+      height: 105px;
+      background: radial-gradient(circle, #1a4269 0%, var(--seal-blue) 75%, #081726 100%);
       border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #133b70, #06152b);
-      color: #f3dfb7;
-      border: 3px dashed #b89758;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(0, 0, 0, 0.9);
-      cursor: pointer;
+      box-shadow: 0 0 20px rgba(0,0,0,0.7), inset 0 0 10px rgba(255,255,255,0.2);
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      color: #e0e8f0;
       font-weight: 700;
-      font-size: 20px;
-      z-index: 10000;
+      font-size: 19px;
+      cursor: pointer;
+      z-index: 1001;
+      border: 3px dashed rgba(255,255,255,0.3);
+      transition: transform 0.3s ease, opacity 0.5s ease;
       user-select: none;
-      transition: transform 0.3s, opacity 0.4s;
     }
 
-    #sealBtn:active {
-      transform: translate(-50%, -50%) scale(0.92);
+    #sealBtn:hover {
+      transform: translate(-50%, -50%) scale(1.05);
     }
 
-    /* شەقبوونی دەرگاکە بەرەو ناوەوە */
-    .door-split-left {
-      transform: rotateY(-85deg) translateZ(-80px);
-      filter: brightness(0.4);
+    /* ئەنیمەیشنی کرانەوەی دەرگا */
+    .doors-open .door-left {
+      transform: rotateY(-105deg);
     }
-
-    .door-split-right {
-      transform: rotateY(85deg) translateZ(-80px);
-      filter: brightness(0.4);
+    .doors-open .door-right {
+      transform: rotateY(105deg);
+    }
+    .doors-open #sealBtn {
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0);
     }
 
     /* --- نامەی کاتی (باگراوندی قاوەیی کاڵ) --- */
@@ -156,20 +164,24 @@
       padding-bottom: 2px;
     }
 
-    /* --- پەڕی سەرەکی و مەودای 3cm --- */
+    /* --- پەڕی سەرەکی (وێنەی باگراوندی ڕوون بەبێ چین و تەڵخی) --- */
     #mainPage {
       display: none;
       opacity: 0;
       transition: opacity 1.2s ease;
-      background-color: #f7f3eb;
       min-height: 100vh;
       padding-bottom: 4cm;
+      background-image: url('b3abc56a22d42a8e87aef5355744af66.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
     }
 
+    /* پێنج لای بەشی سەرەوە */
     .pentagon-header {
       width: 100%;
       height: 270px;
-      background-image: url('1787831176372.png');
+      background-image: url('1782509761647.png');
       background-size: cover;
       background-position: center;
       clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%);
@@ -196,8 +208,9 @@
 
     .main-desc {
       font-size: 20px;
-      color: #435e4e;
+      color: #273b30;
       line-height: 1.8;
+      font-weight: 700;
     }
 
     /* ڕۆژژمێر */
@@ -217,7 +230,7 @@
       grid-template-columns: repeat(7, 1fr);
       row-gap: 16px;
       font-size: 18px;
-      color: #4a5568;
+      color: #1f2937;
     }
 
     .day-cell {
@@ -275,10 +288,11 @@
 
     .plan-item {
       padding: 18px 0;
-      border-bottom: 1.5px dashed #adc0b3;
+      border-bottom: 1.5px dashed #6f8275;
       font-size: 19px;
-      color: #2d3748;
+      color: #1a202c;
       line-height: 1.6;
+      font-weight: 700;
     }
 
     .plan-item:last-child {
@@ -304,28 +318,28 @@
       border: none;
       border-radius: 14px;
       margin-bottom: 22px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     }
 
     .glass-map-btn {
       display: inline-block;
       width: 100%;
       padding: 16px;
-      background: rgba(228, 221, 203, 0.65);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.9);
       border-radius: 12px;
       color: #145a32;
       text-decoration: none;
       font-weight: 700;
       font-size: 19px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
       transition: background 0.3s;
     }
 
     .glass-map-btn:active {
-      background: rgba(215, 206, 185, 0.85);
+      background: rgba(240, 240, 240, 0.95);
     }
 
     /* دەقی کۆتایی */
@@ -333,7 +347,7 @@
       margin-bottom: 3cm;
       font-size: 20px;
       line-height: 2;
-      color: #3b5042;
+      color: #1b3524;
       font-weight: 700;
     }
 
@@ -371,7 +385,7 @@
   </audio>
 
   <!-- دەرگای سێ ڕەهەندی -->
-  <div id="doorWrapper">
+  <div id="door-wrapper">
     <div class="door door-left" id="doorLeft"></div>
     <div id="sealBtn">بیکەرەوە</div>
     <div class="door door-right" id="doorRight"></div>
@@ -381,7 +395,7 @@
   <div id="scrollScreen">
     <div class="vintage-scroll">
       <h1>بانگهێشتنامەی سیمیناری زانستی</h1>
-      <p><span id="guestPlaceholder" class="guest-name-highlight">سڵاو و ڕێز</span> بەڕێزتان بانگهێشت کراون بۆ ئەم سیمینارە زانستیە</p>
+      <p><span id="guestPlaceholder" class="guest-name-highlight">بەڕێزتان</span> بەڕێزتان بانگهێشت کراون بۆ ئەم سیمینارە زانستیە</p>
     </div>
   </div>
 
@@ -459,7 +473,6 @@
   </div>
 
   <script>
-    // وەرگرتنی ناوی میوان ڕاستەوخۆ لە ڕێگەی لینکی سایتەکە (URL Parameter)
     const urlParams = new URLSearchParams(window.location.search);
     const guestParam = urlParams.get('name');
 
@@ -470,20 +483,15 @@
     }
 
     const sealBtn = document.getElementById('sealBtn');
-    const doorWrapper = document.getElementById('doorWrapper');
-    const doorLeft = document.getElementById('doorLeft');
-    const doorRight = document.getElementById('doorRight');
+    const doorWrapper = document.getElementById('door-wrapper');
     const scrollScreen = document.getElementById('scrollScreen');
     const mainPage = document.getElementById('mainPage');
     const bgMusic = document.getElementById('bgMusic');
 
     sealBtn.addEventListener('click', () => {
-      bgMusic.play().catch(e => console.log("Audio waiting..."));
+      bgMusic.play().catch(e => console.log("دەنگ دەستیپێنەکرد: ", e));
 
-      sealBtn.style.opacity = '0';
-      sealBtn.style.pointerEvents = 'none';
-      doorLeft.classList.add('door-split-left');
-      doorRight.classList.add('door-split-right');
+      doorWrapper.classList.add('doors-open');
 
       setTimeout(() => {
         doorWrapper.style.opacity = '0';
@@ -505,15 +513,12 @@
             setTimeout(() => {
               mainPage.style.opacity = '1';
             }, 50);
-
-            bgMusic.play().catch(e => console.log(e));
           }, 800);
         }, 5000);
 
-      }, 1200);
+      }, 1000);
     });
 
-    // کاتژمێری پێچەوانە بۆ 12-12-2026 کاتژمێر 3:00ی پاش نیوەڕۆ
     const eventTime = new Date("December 12, 2026 15:00:00").getTime();
 
     function updateCountdown() {
